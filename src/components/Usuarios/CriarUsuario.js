@@ -1,6 +1,5 @@
 import { React, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function FormCadastro() {
     const [nome, setNome] = useState('');
@@ -8,14 +7,8 @@ function FormCadastro() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const postData = () => {
-        console.log(nome);
-        console.log(sobrenome);
-        console.log(email);
-        console.log(senha);
-    }
-
-    const enviaFormulario = async () => {
+    const enviaFormulario = async (event) => {
+        event.preventDefault()
         await axios.post('http://localhost:3001/usuarios/create', {
             "nome": nome,
             "sobrenome": sobrenome,
@@ -24,16 +17,18 @@ function FormCadastro() {
         })
         .then(res => {
             console.log('Deu bom')
-        })
-        .catch(res => {
-            console.log('Deu ruim')
+            console.log(res.status)
             console.log(res.data.message)
         })
-        this.context.router.push("/")
+        .catch(err => {
+            console.log('Deu ruim')
+            console.log(err.response.status)
+            console.log(err.response.data.message)
+        })
     }
 
     return (
-    <form>
+    <form onSubmit={enviaFormulario}>
         <div className="form-group">
             <label>Nome:</label>
             <input
@@ -75,7 +70,6 @@ function FormCadastro() {
         </div>
         <button
             type="submit"
-            onClick={async () => enviaFormulario}
             className="btn btn-primary mb-2"
             // component={Link} to="/test-page"
         >
