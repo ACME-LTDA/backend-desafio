@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function FormCadastro() {
     const [nome, setNome] = useState('');
@@ -15,59 +16,73 @@ function FormCadastro() {
     }
 
     const enviaFormulario = async () => {
-        axios.post(`http://localhost:3001/usuarios/create`, {
-            nome: nome,
-            sobrenome: sobrenome,
-            email: email,
-            senha: senha
+        await axios.post('http://localhost:3001/usuarios/create', {
+            "nome": nome,
+            "sobrenome": sobrenome,
+            "email": email,
+            "senha": senha
         })
+        .then(res => {
+            console.log('Deu bom')
+        })
+        .catch(res => {
+            console.log('Deu ruim')
+            console.log(res.data.message)
+        })
+        this.context.router.push("/")
     }
 
     return (
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="">Nome:</label>
-            <input 
+    <form>
+        <div className="form-group">
+            <label>Nome:</label>
+            <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="nome"
                 placeholder="Digite seu nome"
                 onChange={ (e) => setNome(e.target.value) }
             />
             <h3>{nome}</h3>
         </div>
-        <div class="form-group">
-            <label for="">Sobrenome:</label>
-            <input 
+        <div className="form-group">
+            <label>Sobrenome:</label>
+            <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="sobrenome"
                 placeholder="Digite seu sobrenome"
                 onChange={ (e) => setSobrenome(e.target.value) }
             />
         </div>
-        <div class="form-group">
-            <label for="">E-mail:</label>
-            <input 
-                type="email" 
-                class="form-control" 
+        <div className="form-group">
+            <label>E-mail:</label>
+            <input
+                type="email"
+                className="form-control"
                 id="email"
-                placeholder="Digite seu e-mail" 
+                placeholder="Digite seu e-mail"
                 onChange={ (e) => setEmail(e.target.value) } />
         </div>
-        <div class="form-group">
-            <label for="">Senha:</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                id="password" 
-                placeholder="Digite sua senha" 
+        <div className="form-group">
+            <label>Senha:</label>
+            <input
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="Digite sua senha"
                 onChange={ (e) => setSenha(e.target.value) } />
         </div>
-        <button type="submit" onClick={postData} class="btn btn-primary mb-2">Enviar</button>
+        <button
+            type="submit"
+            onClick={async () => enviaFormulario}
+            className="btn btn-primary mb-2"
+            // component={Link} to="/test-page"
+        >
+            Enviar
+        </button>
 
     </form>
 )}
 
 export default FormCadastro
-

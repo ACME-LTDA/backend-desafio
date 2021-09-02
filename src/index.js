@@ -7,9 +7,11 @@ import Footer from './Footer';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-    <BrowserRouter>
+    // <BrowserRouter>
+    <div>
       <App />
-      <Footer />
-    </BrowserRouter>,
+      {/* <Footer /> */}
+    </div>,
+    // </BrowserRouter>,
   document.getElementById('root')
 );

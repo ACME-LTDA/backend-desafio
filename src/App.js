@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import CriarUsuario from './components/Usuarios/CriarUsuario'
 
 function App() {
-    // return (
+    //  return (
     //   <div className="App">
     //     <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
     //       <a href="#" className="navbar-brand">
@@ -42,31 +42,32 @@ function App() {
     //       </Switch>
     //     </div>
     //   </div>
-      
+
     // );
     //return(<CriarUsuario />)
-    <Router>
-          <div className="App">
-            <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
-              <a href="/" className="navbar-brand">
-                ACME LTDA.
-              </a>
-              <div className="navbar-nav mr-auto">
-                <li className="nav-item">
-                      <Link to={"/Dashboard"} className="nav-link"> Teste </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/"} className="nav-link"> Teste 2 </Link>
-                </li>
-              </div>
-            </nav>        
-            <Switch>
-              <Route exact path={"/"} component={Login}/>
-              <Route path={"/Dashboard"} component={Dashboard}/>
-            </Switch>
-          </div>
-      </Router>
-    );
+    //  <Router>
+    //        <div className="App">
+    //          <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
+    //           <a href="/" className="navbar-brand">
+    //              ACME LTDA.
+    //            </a>
+    //            <div className="navbar-nav mr-auto">
+    //             <li className="nav-item">
+    //                    <Link to={"/CriarUsuario"} className="nav-link"> Criar Usuario </Link>
+    //              </li>
+    //              <li className="nav-item">
+    //                <Link to={"/Dashboard"} className="nav-link"> Teste </Link>
+    //              </li>
+    //            </div>
+    //          </nav>
+    //          <Switch>
+    //            <Route exact path={"/"} component={Dashboard}/>
+    //            <Route path={"/CriarUsuario"} component={CriarUsuario}/>
+    //          </Switch>
+    //        </div>
+    //    </Router>
+    //  );
+    return (<CriarUsuario />)
 }
 
 //function TrazDashboard() {
