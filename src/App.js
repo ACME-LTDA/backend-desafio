@@ -3,10 +3,11 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Dashboard from './components/Dashboard';
-import Login from './components/Login';
+import Login from './components/LoginUsuario';
 import CriarUsuario from './components/Usuarios/CriarUsuario'
+import LoginUsuario from './components/LoginUsuario';
 
-function App() {
+function App(props) {
     // return (
     //   <div className="App">
     //     <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
@@ -68,6 +69,16 @@ function App() {
     //    </Router>
     //  );
     // return (<CriarUsuario />)
+  return (
+    <>
+      {
+        !props.isLogado ?
+          <LoginUsuario />
+        :
+          <h1>Tá logado!!!</h1>
+      }
+    </>
+  )
 }
 
 //function TrazDashboard() {

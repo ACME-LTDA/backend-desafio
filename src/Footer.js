@@ -1,5 +1,5 @@
 
-function Footer(){
+function Footer(props) {
     return(
         <footer className="text-center text-lg-start bg-light text-muted">
             <div className="text-center p-4">

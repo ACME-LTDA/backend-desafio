@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
 import Footer from './Footer';
+import SessaoUsuario from './components/Usuarios/SessaoUsuario'
 
-import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
     <BrowserRouter>
-      <App />
-      <Footer />
+      <SessaoUsuario>
+        <App />
+        <Footer />
+      </SessaoUsuario>
     </BrowserRouter>,
   document.getElementById('root')
 );

@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-function Login(){
+
+function LoginUsuario(){
     return(
         <div>
         <h1>Login</h1>
@@ -10,7 +11,7 @@ function Login(){
         </div>
         <div className="form-group">
             <label>Senha:</label>
-            <input type="password" className="form-control" id="email" placeholder="Digite sua senha" />
+            <input type="password" className="form-control" id="senha" placeholder="Digite sua senha" />
         </div>
         <button type="submit" className="btn btn-primary mb-2">Entrar</button>
         </div>
@@ -18,4 +19,4 @@ function Login(){
     );
 }
 
-export default Login;
+export default LoginUsuario;
