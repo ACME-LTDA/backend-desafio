@@ -76,7 +76,7 @@ function App({ sessao, setSessao }) {
           <LoginUsuario setSessao={setSessao} />
         : sessao.isLogado && sessao.isAdmin ?
           // criar usuario
-          <CriarUsuario />
+          <CriarUsuario sessao={sessao} />
         : <p>landing page do usuario</p>
       }
     </>
