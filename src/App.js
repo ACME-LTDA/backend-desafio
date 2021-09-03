@@ -7,7 +7,7 @@ import Login from './components/LoginUsuario';
 import CriarUsuario from './components/Usuarios/CriarUsuario'
 import LoginUsuario from './components/LoginUsuario';
 
-function App(props) {
+function App({ sessao, setSessao }) {
     // return (
     //   <div className="App">
     //     <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
@@ -72,10 +72,12 @@ function App(props) {
   return (
     <>
       {
-        !props.isLogado ?
-          <LoginUsuario />
-        :
-          <h1>Tá logado!!!</h1>
+        !sessao.isLogado ?
+          <LoginUsuario setSessao={setSessao} />
+        : sessao.isLogado && sessao.isAdmin ?
+          // criar usuario
+          <CriarUsuario />
+        : <p>landing page do usuario</p>
       }
     </>
   )

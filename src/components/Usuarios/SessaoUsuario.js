@@ -6,14 +6,24 @@ class SessaoUsuario extends React.Component {
     this.state = {
       isLogado: false,
       isAdmin: false,
-      idUsuario: null
+      idUsuario: null,
+      token: null
     }
+  }
+
+  setSessao = (id, isAdmin, token) => {
+    this.setState({
+      isLogado: true,
+      isAdmin: isAdmin,
+      idUsuario: id,
+      token: token
+    })
   }
 
   render() {
     const componentesFilhos = React.Children.map(this.props.children, child => {
       if (React.isValidElement(child))
-          return React.cloneElement(child, { isLogado: this.state.isLogado })
+          return React.cloneElement(child, { sessao: this.state, setSessao: this.setSessao })
       return child
     })
 
