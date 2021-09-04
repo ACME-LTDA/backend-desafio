@@ -13,15 +13,12 @@ function LoginUsuario({ setSessao }) {
       "senha": senha
     })
       .then(res => {
-        console.log('Deu bom')
-        console.log(res.status)
-        console.log(res)
+        console.log('Login efetivado com sucesso!')
+        console.log(res.data)
         return res.data
       })
       .catch(err => {
-        console.log('Deu ruim')
-        console.log(err.response)
-        // console.log(err.response.data.message)
+        console.log('Erro ao tentar logar: ', err)
       })
     if (dadosLogin != null) {
       setSessao(dadosLogin.id, dadosLogin.isAdmin, dadosLogin.token)

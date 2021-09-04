@@ -1,14 +1,25 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
-async function ExibirUsuario({ sessao }) {
+function ExibirUsuario({ sessao }) {
+  const [dados, setDados] = useState({})
+
   // TODO usar o refresh token para esta operacao
-  const dadosUsuario = await axios.get(`/usuarios/${sessao.idUsuario}`, {
-    headers: {
-      'Authorization': `Bearer ${sessao.token}`
-    }
-  })
-    .then(res => res.data.dados)
+  useEffect(() => {
+    const fetchDados = async () => {
+      const resultado = await axios.get(`/usuarios/${sessao.idUsuario}`, {
+        headers: {
+          'Authorization': `Bearer ${sessao.token}`
+        }
+      })
+        .then(res => res.data.dados)
+
+      setDados(resultado)
+    };
+
+    fetchDados();
+    console.log(dados)
+  }, []);
   // const [listaUsuarios, setListaUsuarios] = useState([]);
   // useEffect(() => {
   //   axios.get('/usuarios/listar') // verificar endereço que contém método findAll
@@ -32,14 +43,14 @@ async function ExibirUsuario({ sessao }) {
     <div>
       <form>
         <tr>
-          <th>Nome:</th>
-          <th>Sobrenome</th>
-          <th>E-mail</th>
+          <th>Nome: </th>
+          <th>Sobrenome: </th>
+          <th>E-mail: </th>
         </tr>
         <tr>
-          <td>{dadosUsuario.nome}</td>
-          <td>{dadosUsuario.sobrenome}</td>
-          <td>{dadosUsuario.email}</td>
+          <td>{dados.nome}</td>
+          <td>{dados.sobrenome}</td>
+          <td>{dados.email}</td>
         </tr>
         {/* {
           listaUsuarios.map((data) => {
