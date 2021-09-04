@@ -22,7 +22,6 @@ function ExibirUsuario({ sessao, setSessao }) {
   }, []);
 
   const deletaConta = async () => {
-    console.log('Deleção sendo iniciada')
     // TODO colocar uma caixa de confirmacao de deletar a conta
     const resultado = await axios.delete(`/usuarios/${sessao.idUsuario}/delete`, {
       headers: {
@@ -30,6 +29,9 @@ function ExibirUsuario({ sessao, setSessao }) {
       }
     })
       .then(res => res.data)
+      .catch(err => {
+        console.log('Erro ao remover o usuário: ' + err)
+      })
     if (resultado != null) {
       console.log('Usuário removido com sucesso! Bye bye ' + sessao.idUsuario)
       setSessao(null, false, false, false)
@@ -56,22 +58,25 @@ function ExibirUsuario({ sessao, setSessao }) {
 
   return (
     <div>
-      <form>
-        <tr>
-          <th>Nome: </th>
-          <th>Sobrenome: </th>
-          <th>E-mail: </th>
-        </tr>
-        <tr>
-          <td>{dados.nome}</td>
-          <td>{dados.sobrenome}</td>
-          <td>{dados.email}</td>
-        </tr>
-        <button
-          type="button"
-          onClick={async () => deletaConta()}
-        >Deletar Conta</button>
-        {/* {
+      <table>
+        <tbody>
+          <tr>
+            <th>Nome: </th>
+            <th>Sobrenome: </th>
+            <th>E-mail: </th>
+          </tr>
+          <tr>
+            <td>{dados.nome}</td>
+            <td>{dados.sobrenome}</td>
+            <td>{dados.email}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        type="button"
+        onClick={async () => deletaConta()}
+      >Deletar Conta</button>
+      {/* {
           listaUsuarios.map((data) => {
             return (
                             <tr>
@@ -84,7 +89,6 @@ function ExibirUsuario({ sessao, setSessao }) {
             )
           })
         } */}
-      </form>
     </div>
   )
 }
