@@ -1,10 +1,10 @@
 
 function Footer(props) {
-    return(
+    return (
         <footer className="text-center text-lg-start bg-light text-muted">
             <div className="text-center p-4">
                 © {new Date().getFullYear()} Copyright:
-                <a className="text-reset fw-bold">ACME LTDA.</a>
+                <a className="text-reset fw-bold"> ACME LTDA.</a>
             </div>
         </footer>
     )

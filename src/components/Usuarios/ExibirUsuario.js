@@ -1,8 +1,13 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
+import './ExibirUsuario.css';
 
 function ExibirUsuario({ sessao, setSessao }) {
   const [dados, setDados] = useState({})
+  const [desabilitado, setDesabilitado] = useState(true)
+  const [nome, setNome] = useState('')
+  const [sobrenome, setSobrenome] = useState('')
+  const [habilitaSalvar, setHabilitaSalvar] = useState(false)
 
   // TODO usar o refresh token para esta operacao
   useEffect(() => {
@@ -14,7 +19,10 @@ function ExibirUsuario({ sessao, setSessao }) {
       })
         .then(res => res.data.dados)
 
+      resultado.sobrenome = resultado.sobrenome ?? ''
       setDados(resultado)
+      setNome(resultado.nome)
+      setSobrenome(resultado.sobrenome)
     };
 
     fetchDados();
@@ -36,59 +44,90 @@ function ExibirUsuario({ sessao, setSessao }) {
       setSessao(null, false, null, false)
     }
   }
-  // const [listaUsuarios, setListaUsuarios] = useState([]);
-  // useEffect(() => {
-  //   axios.get('/usuarios/listar') // verificar endereço que contém método findAll
-  //     .then((response) => {
-  //       setListaUsuarios(response.data)
-  //     })
-  // }, [])
-  // const onDelete = (id) => {
-  //  axios.delete('/usuarios/apagar')
-  //  .then(() => { atualizaTabela(); })
-  //}
 
-  //const atualizaTabela = () => {
-  //axios.get('/usuarios/listar')
-  //.then((atualizaTabela) => {
-  //setListaUsuarios(atualizaTabela.data)
-  //})
-  //}
+  const habilitaBotao = () => {
+    if (nome === dados.nome.toString && sobrenome === dados.sobrenome.toString()) {
+      console.log('Desabilita salvar')
+      setHabilitaSalvar(false)
+    }
+    else {
+      console.log('Habilita salvar')
+      setHabilitaSalvar(true)
+    }
+  }
+
+  const mudaNome = (event) => {
+    setNome(event.target.value)
+    habilitaBotao()
+  }
+
+  const mudaSobrenome = (event) => {
+    setSobrenome(event.target.value)
+    habilitaBotao()
+  }
 
   return (
     <div>
-      <table>
-        <tbody>
-          <tr>
-            <th>Nome: </th>
-            <th>Sobrenome: </th>
-            <th>E-mail: </th>
-          </tr>
-          <tr>
-            <td>{dados.nome}</td>
-            <td>{dados.sobrenome}</td>
-            <td>{dados.email}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button
-        type="button"
-        onClick={async () => deletaConta()}
-      >Deletar Conta</button>
-      {/* {
-          listaUsuarios.map((data) => {
-            return (
-                            <tr>
-                                <td>{data.nome}</td>
-                                <td>{data.sobrenome}</td>
-                                <td>{data.email}</td>
-                                <td><button onClick={() => setUsuario(data)}>Editar</button></td>
-                                <td><button onClick={() => onDelete(data.id)}>Apagar</button></td>
-                            </tr>
-            )
-          })
-        } */}
-    </div>
+      <div>
+        <form id="form-profile">
+          <div className='form-group'>
+            <label>Nome: </label>
+            <input
+              type="text"
+              value={nome}
+              className="form-control"
+              disabled={desabilitado}
+              onChange={e => mudaNome(e)}
+            />
+          </div>
+          <div className='form-group'>
+            <label>Sobrenome: </label>
+            <input
+              type="text"
+              value={sobrenome}
+              className="form-control"
+              disabled={desabilitado}
+              onChange={e => mudaSobrenome(e)}
+            />
+          </div>
+          <div className='form-group'>
+            <label>E-mail: </label>
+            <input
+              type="email"
+              value={dados.email}
+              className="form-control"
+              disabled
+            />
+          </div>
+        </form>
+        <div id="wrapper">
+
+          <button
+            type="button"
+            className="btn btn-danger mb-2"
+            onClick={async () => deletaConta()}
+          >
+            Deletar Conta
+          </button>
+          {desabilitado ?
+            <button
+              type="button"
+              className="btn btn-success mb-2"
+              onClick={() => setDesabilitado(false)}
+            >
+              Editar perfil
+            </button>
+            : <button
+              type="button"
+              className="btn btn-success mb-2"
+              disabled={!habilitaSalvar}
+            // onClick={async (e) => enviarFormulario(e)}
+            >
+              Salvar alterações
+            </button>}
+        </div>
+      </div >
+    </div >
   )
 }
 
