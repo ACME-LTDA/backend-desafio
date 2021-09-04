@@ -28,7 +28,7 @@ function App({ sessao, setSessao }) {
           <CriarUsuario sessao={sessao} />
         </Route>
         <Route path={`/usuarios/${sessao.idUsuario}`}>
-          <ExibirUsuario sessao={sessao} />
+          <ExibirUsuario sessao={sessao} setSessao={setSessao} />
         </Route>
       </Switch>
     </>

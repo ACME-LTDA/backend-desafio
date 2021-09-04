@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
-function ExibirUsuario({ sessao }) {
+function ExibirUsuario({ sessao, setSessao }) {
   const [dados, setDados] = useState({})
 
   // TODO usar o refresh token para esta operacao
@@ -20,6 +20,21 @@ function ExibirUsuario({ sessao }) {
     fetchDados();
     console.log(dados)
   }, []);
+
+  const deletaConta = async () => {
+    console.log('Deleção sendo iniciada')
+    // TODO colocar uma caixa de confirmacao de deletar a conta
+    const resultado = await axios.delete(`/usuarios/${sessao.idUsuario}/delete`, {
+      headers: {
+        'Authorization': `Bearer ${sessao.token}`
+      }
+    })
+      .then(res => res.data)
+    if (resultado != null) {
+      console.log('Usuário removido com sucesso! Bye bye ' + sessao.idUsuario)
+      setSessao(null, false, false, false)
+    }
+  }
   // const [listaUsuarios, setListaUsuarios] = useState([]);
   // useEffect(() => {
   //   axios.get('/usuarios/listar') // verificar endereço que contém método findAll
@@ -52,6 +67,10 @@ function ExibirUsuario({ sessao }) {
           <td>{dados.sobrenome}</td>
           <td>{dados.email}</td>
         </tr>
+        <button
+          type="button"
+          onClick={async () => deletaConta()}
+        >Deletar Conta</button>
         {/* {
           listaUsuarios.map((data) => {
             return (
