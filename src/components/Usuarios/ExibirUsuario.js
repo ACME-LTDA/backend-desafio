@@ -18,7 +18,6 @@ function ExibirUsuario({ sessao, setSessao }) {
     };
 
     fetchDados();
-    console.log(dados)
   }, []);
 
   const deletaConta = async () => {
@@ -34,7 +33,7 @@ function ExibirUsuario({ sessao, setSessao }) {
       })
     if (resultado != null) {
       console.log('Usuário removido com sucesso! Bye bye ' + sessao.idUsuario)
-      setSessao(null, false, false, false)
+      setSessao(null, false, null, false)
     }
   }
   // const [listaUsuarios, setListaUsuarios] = useState([]);
