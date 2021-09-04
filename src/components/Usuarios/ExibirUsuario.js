@@ -1,7 +1,16 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 
-function ExibeUsuarios() {
+async function ExibirUsuario({ sessao }) {
+  let dadosUsuario = null
+  // TODO usar o refresh token para esta operacao
+  await axios.get(`/usuarios/${sessao.idUsuario}`, {
+    headers: {
+      'Authorization': `Bearer ${sessao.token}`
+    }
+  }).then(res => {
+    dadosUsuario = res.data.dados
+  })
   // const [listaUsuarios, setListaUsuarios] = useState([]);
   // useEffect(() => {
   //   axios.get('/usuarios/listar') // verificar endereço que contém método findAll
@@ -25,9 +34,14 @@ function ExibeUsuarios() {
     <div>
       <form>
         <tr>
-          <th>Nome</th>
+          <th>Nome:</th>
           <th>Sobrenome</th>
           <th>E-mail</th>
+        </tr>
+        <tr>
+          <td>{dadosUsuario.nome}</td>
+          <td>{dadosUsuario.sobrenome}</td>
+          <td>{dadosUsuario.email}</td>
         </tr>
         {/* {
           listaUsuarios.map((data) => {
@@ -47,4 +61,4 @@ function ExibeUsuarios() {
   )
 }
 
-export default ExibeUsuarios
+export default ExibirUsuario

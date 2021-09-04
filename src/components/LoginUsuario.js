@@ -30,7 +30,7 @@ function LoginUsuario({ setSessao }) {
   }
   return (
     <div>
-      <form onSubmit={enviaFormulario}>
+      <form onSubmit={async (e) => enviaFormulario(e)}>
         <h1>Login</h1>
         <div className='form-group'>
           <label>E-mail:</label>
