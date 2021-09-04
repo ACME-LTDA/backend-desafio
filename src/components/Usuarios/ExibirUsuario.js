@@ -2,15 +2,13 @@ import { React, useState } from 'react';
 import axios from 'axios';
 
 async function ExibirUsuario({ sessao }) {
-  let dadosUsuario = null
   // TODO usar o refresh token para esta operacao
-  await axios.get(`/usuarios/${sessao.idUsuario}`, {
+  const dadosUsuario = await axios.get(`/usuarios/${sessao.idUsuario}`, {
     headers: {
       'Authorization': `Bearer ${sessao.token}`
     }
-  }).then(res => {
-    dadosUsuario = res.data.dados
   })
+    .then(res => res.data.dados)
   // const [listaUsuarios, setListaUsuarios] = useState([]);
   // useEffect(() => {
   //   axios.get('/usuarios/listar') // verificar endereço que contém método findAll

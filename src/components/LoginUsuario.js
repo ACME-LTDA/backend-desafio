@@ -8,8 +8,7 @@ function LoginUsuario({ setSessao }) {
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
-    let dadosLogin = null
-    await axios.post('/sessao/login', {
+    const dadosLogin = await axios.post('/sessao/login', {
       "email": email,
       "senha": senha
     })
@@ -17,7 +16,7 @@ function LoginUsuario({ setSessao }) {
         console.log('Deu bom')
         console.log(res.status)
         console.log(res)
-        dadosLogin = res.data
+        return res.data
       })
       .catch(err => {
         console.log('Deu ruim')
