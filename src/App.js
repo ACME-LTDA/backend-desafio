@@ -6,18 +6,31 @@ import CriarUsuario from './components/Usuarios/CriarUsuario'
 import LoginUsuario from './components/LoginUsuario';
 import EditaUsuario from './components/Usuarios/EditarUsuario';
 import ExibirUsuario from './components/Usuarios/ExibirUsuario';
+import { Redirect } from 'react-router';
 
 function App({ sessao, setSessao }) {
   return (
     <>
       {
         !sessao.isLogado ?
-          <LoginUsuario sessao={sessao} setSessao={setSessao} />
+          <Redirect to="/login" />
           : sessao.isLogado && sessao.isAdmin ?
             // criar usuario
-            <CriarUsuario sessao={sessao} />
-            : <ExibirUsuario sessao={sessao} />
+            <Redirect to="/admin/adicionar-user" />
+            : <Redirect to={`/usuarios/${sessao.idUsuario}`} />
       }
+
+      <Switch>
+        <Route path="/login">
+          <LoginUsuario sessao={sessao} setSessao={setSessao} />
+        </Route>
+        <Route path="/admin/adicionar-user">
+          <CriarUsuario sessao={sessao} />
+        </Route>
+        <Route path={`/usuarios/${sessao.idUsuario}`}>
+          <ExibirUsuario sessao={sessao} />
+        </Route>
+      </Switch>
     </>
   )
 }
