@@ -27,7 +27,7 @@ function LoginUsuario({ sessao, setSessao }) {
           resposta.data.data.id,
           resposta.data.data.isAdmin,
           resposta.data.data.token)
-        if (sessao.isAdmin)
+        if (resposta.data.data.isAdmin)
           history.push('/admin/adicionar-user')
         else
           history.push(`/usuarios/${resposta.data.data.id}`)
