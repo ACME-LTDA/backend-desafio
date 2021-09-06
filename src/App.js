@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom/cjs/react-router-dom.min';
-import CriarUsuario from './components/Usuarios/CriarUsuario'
-import LoginUsuario from './components/LoginUsuario';
-import EditaUsuario from './components/Usuarios/EditarUsuario';
-import ExibirUsuario from './components/Usuarios/ExibirUsuario';
+import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import { Redirect } from 'react-router';
+
+import CriarUsuario from './components/Usuarios/CriarUsuario';
+import LoginUsuario from './components/LoginUsuario';
+import ExibirUsuario from './components/Usuarios/ExibirUsuario';
 
 function App({ sessao, setSessao }) {
   return (
@@ -21,14 +21,14 @@ function App({ sessao, setSessao }) {
       }
 
       <Switch>
-        <Route path="/login">
-          <LoginUsuario sessao={sessao} setSessao={setSessao} />
-        </Route>
         <Route path="/admin/adicionar-user">
           <CriarUsuario sessao={sessao} />
         </Route>
         <Route path={`/usuarios/${sessao.idUsuario}`}>
           <ExibirUsuario sessao={sessao} setSessao={setSessao} />
+        </Route>
+        <Route path="/login">
+          <LoginUsuario sessao={sessao} setSessao={setSessao} />
         </Route>
       </Switch>
     </>

@@ -1,26 +1,63 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 import './LoginUsuario.css';
 
-function LoginUsuario({ setSessao }) {
+function LoginUsuario({ sessao, setSessao }) {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+  const history = useHistory()
+
+  useEffect(() => {
+    const autenticaUsuario = async () => {
+      const resposta = await axios.post('/sessao/refresh-token', {}, {
+        withCredentials: true
+      })
+        .then(
+          res => res,
+          err => null)
+      // .catch(err => {console.log('Erro: ', err)})
+
+      console.log('resposta: ', resposta)
+
+      if (resposta !== null) {
+        setSessao(
+          resposta.data.data.id,
+          resposta.data.data.isAdmin,
+          resposta.data.data.token)
+        if (sessao.isAdmin)
+          history.push('/admin/adicionar-user')
+        else
+          history.push(`/usuarios/${resposta.data.data.id}`)
+      }
+      else
+        setSessao(null, null, null, false)
+    };
+
+    if (!sessao.isLogado)
+      console.log('vai autenticar...')
+    autenticaUsuario();
+  }, [])
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
     const dadosLogin = await axios.post('/sessao/login', {
       "email": email,
       "senha": senha
-    })
-      .then(res => {
-        console.log('Login efetivado com sucesso!')
-        console.log(res.data)
-        return res.data
+    },
+      {
+        withCredentials: true
       })
-      .catch(err => {
-        console.log('Erro ao tentar logar: ', err)
-      })
+      .then(
+        res => {
+          console.log('Login efetivado com sucesso!')
+          return res.data
+        },
+        err => {
+          console.log('Erro ao tentar logar: ', err)
+        })
     if (dadosLogin != null) {
       setSessao(dadosLogin.data.id, dadosLogin.data.isAdmin,
         dadosLogin.data.token)

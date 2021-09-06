@@ -5,7 +5,7 @@ class SessaoUsuario extends React.Component {
     super(props)
     this.state = {
       isLogado: false,
-      isAdmin: false,
+      isAdmin: null,
       idUsuario: null,
       token: null
     }
