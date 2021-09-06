@@ -22,7 +22,8 @@ function LoginUsuario({ setSessao }) {
         console.log('Erro ao tentar logar: ', err)
       })
     if (dadosLogin != null) {
-      setSessao(dadosLogin.id, dadosLogin.isAdmin, dadosLogin.token)
+      setSessao(dadosLogin.data.id, dadosLogin.data.isAdmin,
+        dadosLogin.data.token)
     }
   }
   return (
