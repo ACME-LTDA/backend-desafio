@@ -3,14 +3,37 @@ import './App.css';
 import React from 'react';
 import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import { Redirect } from 'react-router';
+import axios from 'axios';
 
 import CriarUsuario from './components/Usuarios/CriarUsuario';
 import LoginUsuario from './components/LoginUsuario';
 import ExibirUsuario from './components/Usuarios/ExibirUsuario';
 
 function App({ sessao, setSessao }) {
+  const deslogaUsuario = async () => {
+    const resposta = await axios.post('/sessao/logout', {}, {
+      withCredentials: true
+    })
+      .then(
+        res => res,
+        err => null)
+    if (resposta !== null)
+      setSessao(null, false, null, false)
+  }
+
   return (
-    <>
+    <div className="App">
+      <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
+        <a href="/" className="navbar-brand">
+          ACME LTDA.
+        </a>
+        {sessao.isLogado ?
+          <a href="/" className="navbar-brand" onClick={deslogaUsuario}>
+            LOGOUT
+          </a>
+          : null}
+      </nav>
+
       {
         !sessao.isLogado ?
           <Redirect to="/login" />
@@ -31,7 +54,7 @@ function App({ sessao, setSessao }) {
           <LoginUsuario sessao={sessao} setSessao={setSessao} />
         </Route>
       </Switch>
-    </>
+    </div>
   )
 }
 
