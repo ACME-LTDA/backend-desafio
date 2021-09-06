@@ -22,7 +22,9 @@ function App({ sessao, setSessao }) {
 
       <Switch>
         <Route path="/login">
-          <LoginUsuario sessao={sessao} setSessao={setSessao} />
+          <div className="bg_imagem">
+            <LoginUsuario sessao={sessao} setSessao={setSessao} />
+          </div>
         </Route>
         <Route path="/admin/adicionar-user">
           <CriarUsuario sessao={sessao} />

@@ -9,3 +9,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.tela-centro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.logo{
+    height:220px;
+    width:auto;
+}
+
+.transparent-input {
+    background-color: rgba(0, 0, 0, 0);
+    border:none !important;
+ }
+

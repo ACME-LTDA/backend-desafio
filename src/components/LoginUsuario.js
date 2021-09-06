@@ -26,15 +26,17 @@ function LoginUsuario({ setSessao }) {
     }
   }
   return (
-    <div>
+    <div className='tela-centro'>
 
       <form onSubmit={async (e) => enviaFormulario(e)}>
-        <h1>Login</h1>
+        <h1>
+          <img className='logo' src={process.env.PUBLIC_URL+"ACME_logo2.png"} />
+        </h1>
         <div className='form-group'>
           <label>E-mail:</label>
           <input
             type="email"
-            className="form-control"
+            className="form-control transparent-input"
             id="email"
             placeholder="Digite seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
@@ -44,7 +46,7 @@ function LoginUsuario({ setSessao }) {
           <label>Senha:</label>
           <input
             type="password"
-            className="form-control"
+            className="form-control transparent-input"
             id="senha"
             placeholder="Digite sua senha"
             onChange={(e) => setSenha(e.target.value)}
