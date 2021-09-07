@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import React from 'react';
+import FileUpload from './components/fileupload';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom/cjs/react-router-dom.min';
 import CriarUsuario from './components/Usuarios/CriarUsuario'
 import LoginUsuario from './components/LoginUsuario';
@@ -11,6 +12,7 @@ import { Redirect } from 'react-router';
 function App({ sessao, setSessao }) {
   return (
     <>
+        <FileUpload />
       {
         !sessao.isLogado ?
           <Redirect to="/login" />
