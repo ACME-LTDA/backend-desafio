@@ -78,7 +78,7 @@ footer{
 
 
 .bg_imagem{
-  background-image: url('http://localhost:3000/acme_f1.gif');
+  background-image: linear-gradient(rgba(2, 4, 7, 0.74), rgba(4, 7, 10, 0.74)), url('http://localhost:3000/acme_f1.gif');
   background-repeat:no-repeat;
   background-size: cover;
   position: fixed;

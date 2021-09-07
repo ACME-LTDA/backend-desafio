@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
 import axios from 'axios';
 import './LoginUsuario.css';
+import TextField from '@material-ui/core/TextField';
 
 function LoginUsuario({ setSessao }) {
   const [email, setEmail] = useState('')
@@ -27,35 +28,37 @@ function LoginUsuario({ setSessao }) {
   }
   return (
     <div className='tela-centro'>
+      <div className="container-login">
+        <div className="form-group p-t-30 p-b-50">
+            <img className='logo' src={process.env.PUBLIC_URL+"ACME_logo2.png"} />
+       </div>
+      
+      <form className='form-login' onSubmit={async (e) => enviaFormulario(e)}>
 
-      <form onSubmit={async (e) => enviaFormulario(e)}>
-        <h1>
-          <img className='logo' src={process.env.PUBLIC_URL+"ACME_logo2.png"} />
-        </h1>
-        <div className='form-group'>
-          <label>E-mail:</label>
-          <input
+          <div className="form-floating form-spacing">
+          <TextField 
+            label="E-mail" 
             type="email"
             className="form-control transparent-input"
             id="email"
-            placeholder="Digite seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
+            style={{width:'80%', marginBottom:'20px'}}
           />
-        </div>
-        <div className="form-group">
-          <label>Senha:</label>
-          <input
+          </div>
+        <div className="form-floating form-spacing">
+          <TextField 
+            label="Senha" 
             type="password"
             className="form-control transparent-input"
             id="senha"
-            placeholder="Digite sua senha"
             onChange={(e) => setSenha(e.target.value)}
+            style={{width:'80%'}}
           />
         </div>
         <button type="submit" className="btn btn-primary mb-2">Entrar</button>
       </form>
     </div>
-
+    </div>
   );
 }
 

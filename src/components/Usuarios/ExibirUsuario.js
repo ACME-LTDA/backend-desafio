@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import './ExibirUsuario.css';
+import TextField from '@material-ui/core/TextField';
 
 function ExibirUsuario({ sessao, setSessao }) {
   const [dados, setDados] = useState({})
@@ -128,7 +129,6 @@ function ExibirUsuario({ sessao, setSessao }) {
         </div>
       </div >
     </div >
-  )
-}
-
-export default ExibirUsuario
+    );
+}  
+export default ExibirUsuario;
