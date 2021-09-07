@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { GiTrophy } from "react-icons/gi";
 
+import './CampeaoMundial.css';
+
 export default class CampeaoMundial extends Component {
   render() {
     console.log(this.props.driver);
@@ -9,12 +11,12 @@ export default class CampeaoMundial extends Component {
     const linkWikipedia = this.props.driver.url;
     const isCampeao = this.props.driver.champion;
     return (
-      <div className="ui segment winner-row">
-        <h3 className="ui header">
+      <div>
+        <h3>
           {pilotoNome} {pilotoSobrenome} {isCampeao ? <GiTrophy /> : ""}
-          <div className="sub header">
+          <div>
             {isCampeao ? <div>(Campeão Mundial)</div> : ""}
-            <a href={linkWikipedia} target="_blank" rel="noopener noreferrer">
+            Página da Wikipedia: <a href={linkWikipedia} target="_blank" rel="noopener noreferrer">
               {linkWikipedia}
             </a>
           </div>

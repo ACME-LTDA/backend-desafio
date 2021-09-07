@@ -42,7 +42,17 @@ export default class ListaVencedores extends Component {
   }
 
   generateWinnersRow = () => {
-    return this.state.pilotos.map(driver => <CampeaoMundial key={driver.driverId} driver={driver} />);
+    return this.state.pilotos.map(driver => 
+    <CampeaoMundial 
+      key={driver.driverId} 
+      driver={driver} 
+      style={{
+        width: "100%",
+        padding: "10px",
+        margin: "20px",
+        display: "inline-flex",
+        justifyContent:"center",
+    }} />);
   };
 
   render() {

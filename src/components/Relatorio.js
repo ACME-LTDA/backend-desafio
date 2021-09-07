@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import Ano from "./anos/Ano";
+import { Helmet } from 'react-helmet';
+import { Paper } from '@material-ui/core';
+
+import "./Relatorio.css";
 
 export class Relatorio extends Component {
   constructor(props) {
@@ -10,7 +14,7 @@ export class Relatorio extends Component {
   }
 
   listaAnos = () => {
-    let inicio = 1980;
+    let inicio = 1950;
     let novaData = new Date();
     var ultimoAno = novaData.getFullYear();
     let final = (ultimoAno - 1);
@@ -25,15 +29,39 @@ export class Relatorio extends Component {
   };
 
   geraAnos = () => {
-    return this.state.anos.map(ano => <Ano key={ano} ano={ano} />);
+    return this.state.anos.map(ano =>
+      <Paper
+      style={{
+          minWidth: "200px",
+          minHeight: "50px",
+          padding: "10px",
+          margin: "20px",
+          display: "inline-flex",
+          justifyContent:"center",
+          backgroundColor:"#ffc2b3",
+          cursor:"pointer"
+      }}
+  >
+       <Ano key={ano} ano={ano} />
+       </Paper>);
   };
 
   render() {
     return (
       <div>
-        <h1>Veja quem foi vencedor em cada ano</h1>
-        <div>{this.geraAnos()}</div>
-      </div>
+      <Helmet>
+      <style>{'body { background-color: #e6e6e6; }'}</style>
+      </Helmet>
+      <Paper className="home-list">
+      <div className="home-page">
+          <h1>Lista de Vencedores</h1>
+          <h2>Confira abaixo quem foram os vencedores e quem foi o campeão mundial de cada ano</h2>
+
+                    <div className="">{this.geraAnos()}</div>
+
+          </div>
+          </Paper>
+    </div>
     );
   }
 }

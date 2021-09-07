@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Paper } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
 
+import "./Vencedores.css";
 import ListaVencedores from "./components/lista-vencedores/ListaVencedores";
 
 export class Vencedores extends Component {
@@ -14,21 +17,16 @@ export class Vencedores extends Component {
 
   render() {
     return (
-      <div className="ui container winners-page">
-        <div className="ui four column grid centered align">
-          <div className="two column row">
-            <div className="five column">
-              <Link to="/relatorio">&larr; Voltar</Link>
-              <h1>Vencedores do ano de {this.state.year}</h1>
-            </div>
-          </div>
-          <div className="two column row">
-            <div className="ui segments five column">
-              <ListaVencedores year={this.state.year} />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
+      <Helmet>
+        <style>{'body { background-color: #e6e6e6; }'}</style>
+      </Helmet>
+            <Paper className="lista-vencedores">
+      <Link to="/whatever" className="sublinhado">&larr; Voltar</Link>
+        <h1>Vencedores do ano de {this.state.year}</h1>
+          <ListaVencedores year={this.state.year} />
+          </Paper>
+    </div>
     );
   }
 }

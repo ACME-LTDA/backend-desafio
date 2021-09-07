@@ -1,0 +1,26 @@
+
+    .header-img {
+      width: 100%;
+      height: auto;
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    .logo{
+      position: absolute;
+      top: 30px;
+      left:270px;
+      width: 60%;
+      height: auto;
+      display: block;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .logo{
+        left: 100px;
+      }
+    }
