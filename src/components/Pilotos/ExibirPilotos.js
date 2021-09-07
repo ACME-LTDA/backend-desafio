@@ -14,7 +14,6 @@ function ExibirPilotos({ sessao, setSessao }) {
   const [desabilitado, setDesabilitado] = useState(true)
   const [dados, setDados] = useState({})
 
-  // TODO usar o refresh token para esta operacao
   useEffect(() => {
     const fetchDados = async () => {
       const resultado = await axios.get(`/pilotos/${sessao.idPiloto}`, {

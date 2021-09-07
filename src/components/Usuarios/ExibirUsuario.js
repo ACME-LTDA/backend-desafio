@@ -9,7 +9,6 @@ function ExibirUsuario({ sessao, setSessao }) {
   const [sobrenome, setSobrenome] = useState('')
   const [habilitaSalvar, setHabilitaSalvar] = useState(false)
 
-  // TODO usar o refresh token para esta operacao
   useEffect(() => {
     const fetchDados = async () => {
       const resultado = await axios.get(`/usuarios/${sessao.idUsuario}`, {
@@ -33,7 +32,6 @@ function ExibirUsuario({ sessao, setSessao }) {
   }, []);
 
   const deletaConta = async () => {
-    // TODO colocar uma caixa de confirmacao de deletar a conta
     const resultado = await axios.delete(`/usuarios/${sessao.idUsuario}/delete`, {
       headers: {
         'Authorization': `Bearer ${sessao.token}`
