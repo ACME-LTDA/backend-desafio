@@ -8,6 +8,7 @@ import axios from 'axios';
 import CriarUsuario from './components/Usuarios/CriarUsuario';
 import LoginUsuario from './components/LoginUsuario';
 import ExibirUsuario from './components/Usuarios/ExibirUsuario';
+import ExibirPilotos from './components/Pilotos/ExibirPilotos';
 
 function App({ sessao, setSessao }) {
   const deslogaUsuario = async () => {
@@ -27,11 +28,23 @@ function App({ sessao, setSessao }) {
         <a href="/" className="navbar-brand">
           ACME LTDA.
         </a>
+        {(sessao.isLogado && !sessao.isAdmin) ?
+          <>
+            <a href="/" className="navbar-brand">
+              PILOTOS
+            </a>
+            <a href="/" className="navbar-brand">
+              PERFIL
+            </a>
+          </>
+          : null}
+
         {sessao.isLogado ?
           <a href="/" className="navbar-brand" onClick={deslogaUsuario}>
             LOGOUT
           </a>
           : null}
+
       </nav>
 
       {
@@ -52,6 +65,9 @@ function App({ sessao, setSessao }) {
         </Route>
         <Route path="/login">
           <LoginUsuario sessao={sessao} setSessao={setSessao} />
+        </Route>
+        <Route path="/pilotos">
+          <ExibirPilotos setSessao={setSessao} />
         </Route>
       </Switch>
     </div>

@@ -17,12 +17,16 @@ function ExibirUsuario({ sessao, setSessao }) {
           'Authorization': `Bearer ${sessao.token}`
         }
       })
-        .then(res => res.data.dados)
+        .then(
+          res => res.data.dados,
+          err => { setSessao(null, false, null, false) })
 
-      resultado.sobrenome = resultado.sobrenome ?? ''
-      setDados(resultado)
-      setNome(resultado.nome)
-      setSobrenome(resultado.sobrenome)
+      if (resultado !== null) {
+        resultado.sobrenome = resultado.sobrenome ?? ''
+        setDados(resultado)
+        setNome(resultado.nome)
+        setSobrenome(resultado.sobrenome)
+      }
     };
 
     fetchDados();
