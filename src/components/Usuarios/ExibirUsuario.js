@@ -87,7 +87,7 @@ function ExibirUsuario({ sessao, setSessao }) {
                 id="nome"
                 disabled={desabilitado}
                 onChange={(e) => mudaNome(e)}
-                style={{ width: "80%", marginBottom: "20px" }}
+                style={{ width: "80%", marginBottom: "20px",height: "100px" }}
               />
             </div>
 
@@ -100,7 +100,7 @@ function ExibirUsuario({ sessao, setSessao }) {
                 id="sobrenome"
                 disabled={desabilitado}
                 onChange={(e) => mudaSobrenome(e)}
-                style={{ width: "80%", marginBottom: "20px" }}
+                style={{ width: "80%", marginBottom: "20px", height:'100px' }}
               />
             </div>
         
@@ -113,7 +113,7 @@ function ExibirUsuario({ sessao, setSessao }) {
               className="form-control transparent-input"
               id="email"
               disabled
-              style={{ width: "80%", marginBottom: "-11px" }}
+              style={{ width: "150%", marginBottom: "-11px", height:"100px" }}
             />
           </div>
           </div>
