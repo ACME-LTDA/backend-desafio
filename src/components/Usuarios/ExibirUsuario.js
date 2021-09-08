@@ -92,6 +92,7 @@ function ExibirUsuario({ sessao, setSessao }) {
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
+    console.log('Enviando formulario');
 
     // const dataForm = new FormData();
     // for (const file of filesElement.current.files) {
@@ -107,33 +108,32 @@ function ExibirUsuario({ sessao, setSessao }) {
     // const data = await res.parse;
     // console.log(data);
 
-    const dadosLogin = await axios.post(`/usuarios/${sessao.idUsuario}/altera`, {
-      nome: nome,
-      sobrenome: sobrenome,
-      // avatar: dataForm
-    },
+    console.log('Usuario: ' + sessao.idUsuario);
+    await axios.post(`/usuarios/${sessao.idUsuario}/altera`,
       {
-        withCredentials: true
-      })
+        "nome": nome,
+        "sobrenome": sobrenome,
+        // avatar: dataForm
+      }, {
+      headers: {
+        'Authorization': `Bearer ${sessao.token}`
+      }
+    })
       .then(
         res => {
-          console.log('Login efetivado com sucesso!')
+          console.log('Dados do usuário atualizados!')
           return res.data
         },
         err => {
-          console.log('Erro ao tentar logar: ', err)
-        })
-    if (dadosLogin != null) {
-      setSessao(dadosLogin.data.id, dadosLogin.data.isAdmin,
-        dadosLogin.data.token)
-    }
+          console.log('Erro ao tentar atualizar dados do usuário: ' + err)
+        });
   }
 
   return (
     <div>
       <h2>Meu Cadastro</h2>
       <div className="container-login3">
-        <form id="form-profile" name="form-profile" onSubmit={async (e) => enviaFormulario(e)}>
+        <form id="form-profile" name="form-profile" >
           <div className="row center-form">
             <div className="form-group col">
               <div className="form-floating form-spacing">
@@ -193,9 +193,10 @@ function ExibirUsuario({ sessao, setSessao }) {
                     Editar perfil
                   </button>
                   : <button
-                    type="submit"
+                    type="button"
                     className="btn btn-success mb-2"
                     disabled={!habilitaSalvar}
+                    onClick={async (e) => { enviaFormulario(e) }}
                   >
                     Salvar alterações
                   </button>}
