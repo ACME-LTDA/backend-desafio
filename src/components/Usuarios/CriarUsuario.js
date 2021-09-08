@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 import './CriarUsuario.css';
+import TextField from '@material-ui/core/TextField';
 
 function FormCadastro({ sessao }) {
   const [nome, setNome] = useState('');
@@ -35,55 +36,67 @@ function FormCadastro({ sessao }) {
   }
 
   return (
-    <form onSubmit={enviaFormulario}>
-      <div className="form-group">
-        <label>Nome:</label>
-        <input
-          type="text"
-          className="form-control"
-          id="nome"
-          placeholder="Digite seu nome"
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <h3>{nome}</h3>
-      </div>
-      <div className="form-group">
-        <label>Sobrenome:</label>
-        <input
-          type="text"
-          className="form-control"
-          id="sobrenome"
-          placeholder="Digite seu sobrenome"
-          onChange={(e) => setSobrenome(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label>E-mail:</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="Digite seu e-mail"
-          onChange={(e) => setEmail(e.target.value)} />
-      </div>
-      <div className="form-group">
-        <label>Senha:</label>
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          placeholder="Digite sua senha"
-          onChange={(e) => setSenha(e.target.value)} />
-      </div>
-      <button
-        type="submit"
-        className="btn btn-primary mb-2"
-      // component={Link} to="/test-page"
-      >
-        Enviar
-      </button>
+    
+    <div className='tela-centro-cadastro'>
+    <div>
+      <div className="container-login2">
+        <div className="form-group p-t-30 p-b-50">
+            <img className='logo-criar-usuario' src={process.env.PUBLIC_URL+"../ACME_head.png"} />
+       </div>
+       
+        <form className="form-cadastro" onSubmit={enviaFormulario}>
+          <h2>Cadastro de Usuário</h2>
+          <div className="form-floating form-spacing">
+          <TextField 
+            label="Nome:" 
+            type="text"
+            className="form-control transparent-input"
+            id="nome"
+            onChange={(e) => setNome(e.target.value)}
+            style={{width:'80%', marginBottom:'20px'}}
+          />
+          </div>
+          <div className="form-floating form-spacing">
+          <TextField 
+            label="Sobrenome:" 
+            type="text"
+            className="form-control transparent-input"
+            id="sobrenome"
+            onChange={(e) => setSobrenome(e.target.value)}
+            style={{width:'80%', marginBottom:'20px'}}
+          />
+          </div>
+          <div className="form-floating form-spacing">
+          <TextField 
+            label="E-mail:" 
+            type="email"
+            className="form-control transparent-input"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+            style={{width:'80%', marginBottom:'20px'}}
+          />
+          </div>
+          <div className="form-floating form-spacing">
+          <TextField
+              label="Senha:"
+              type="password"
+              className="form-control transparent-input"
+              id="password"
+              onChange={(e) => setSenha(e.target.value)} 
+              style={{width:'80%', marginBottom:'20px'}}/>
+          </div>
+          
+          <button
+            type="submit"
+            className="btn btn-primary mb-2"
+          >
+            Enviar
+          </button>
 
-    </form>
+        </form>
+      </div>
+    </div>
+    </div>
   )
 }
 
