@@ -51,7 +51,6 @@ function App({ sessao, setSessao }) {
         !sessao.isLogado ?
           <Redirect to="/login" />
           : sessao.isLogado && sessao.isAdmin ?
-            // criar usuario
             <Redirect to="/admin/adicionar-user" />
             : <Redirect to={`/usuarios/${sessao.idUsuario}`} />
       }
