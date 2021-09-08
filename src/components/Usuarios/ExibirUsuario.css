@@ -1,5 +1,5 @@
 .container-login3{
-    background-image: url('http://localhost:3000/background_exibir.png');
+    background-image: url('http://localhost:3000/background_exibir.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     position: fixed;
@@ -12,7 +12,7 @@
 
 .center-form{
     position: absolute;
-    top: 50%;
+    top: 40%;
     left:10%;
 }
 .form{
@@ -46,4 +46,11 @@
     left:15%;
     
     
+}
+.row-full{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:1280px;
+    padding:0 30px;
+    width:100%;
 }

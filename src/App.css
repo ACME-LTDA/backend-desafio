@@ -3,11 +3,9 @@
 .App {
   text-align: center;
   margin: 2rem auto;
-  max-width: 800px;
+  min-width: 800px;
 
 }
-
-
 
 .form-group{
   display: flex;
@@ -27,13 +25,6 @@
   justify-content: center;
 }
 
-.progessBar{
-  height: 1rem;
-  width: 0%;
-  background-color: rgb(68, 212, 231);
-  color: white;
-  padding:2px
-}
 
 .file-upload{
 
@@ -47,7 +38,7 @@
 }
 
 input , div , button{
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .upbutton{
@@ -72,8 +63,9 @@ footer{
   margin: auto;
 }
 
-#nav-id{
-  margin-bottom: 5%;
+#nav-id{  
+  margin-top: -2.3em !important;
+  z-index: 999999999;
 }
 
 .App-logo {
@@ -110,7 +102,6 @@ footer{
     transform: rotate(360deg);
   }
 }
-
 
 .bg_imagem{
   background-image: linear-gradient(rgba(2, 4, 7, 0.74), rgba(4, 7, 10, 0.74)), url('http://localhost:3000/acme_f1.gif');

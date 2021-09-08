@@ -24,7 +24,7 @@ function App({ sessao, setSessao }) {
 
   return (
     <div className="App">
-      <nav className="navbar navbar-expand navbar-dark bg-dark" id="nav-id">
+      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-dark" id="nav-id">
         <a href="/" className="navbar-brand">
           ACME LTDA.
         </a>
@@ -35,6 +35,9 @@ function App({ sessao, setSessao }) {
             </a>
             <a href="/" className="navbar-brand">
               PERFIL
+            </a>
+            <a href="/relatorio" className="navbar-brand">
+              RELATÓRIO
             </a>
           </>
           : null}
@@ -63,7 +66,9 @@ function App({ sessao, setSessao }) {
           <ExibirUsuario sessao={sessao} setSessao={setSessao} />
         </Route>
         <Route path="/login">
-          <LoginUsuario sessao={sessao} setSessao={setSessao} />
+          <div className="bg_imagem">
+            <LoginUsuario sessao={sessao} setSessao={setSessao} />
+          </div>
         </Route>
         <Route path="/pilotos">
           <ExibirPilotos setSessao={setSessao} />
