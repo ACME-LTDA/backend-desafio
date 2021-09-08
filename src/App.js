@@ -12,7 +12,6 @@ import { Redirect } from 'react-router';
 function App({ sessao, setSessao }) {
   return (
     <>
-        <FileUpload />
       {
         !sessao.isLogado ?
           <Redirect to="/login" />
@@ -31,6 +30,7 @@ function App({ sessao, setSessao }) {
         </Route>
         <Route path={`/usuarios/${sessao.idUsuario}`}>
           <ExibirUsuario sessao={sessao} setSessao={setSessao} />
+          <FileUpload />
         </Route>
       </Switch>
     </>
