@@ -6,7 +6,6 @@ import { Redirect } from 'react-router';
 import axios from 'axios';
 
 import CriarUsuario from './components/Usuarios/CriarUsuario';
-import FileUpload from './components/FileUpload';
 import LoginUsuario from './components/LoginUsuario';
 import ExibirUsuario from './components/Usuarios/ExibirUsuario';
 
@@ -50,7 +49,6 @@ function App({ sessao, setSessao }) {
         </Route>
         <Route path={`/usuarios/${sessao.idUsuario}`}>
           <ExibirUsuario sessao={sessao} setSessao={setSessao} />
-          <FileUpload />
         </Route>
         <Route path="/login">
           <LoginUsuario sessao={sessao} setSessao={setSessao} />

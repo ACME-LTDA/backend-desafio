@@ -1,13 +1,17 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+
 import './ExibirUsuario.css';
+import FileUpload from '../FileUpload';
 
 function ExibirUsuario({ sessao, setSessao }) {
   const [dados, setDados] = useState({})
   const [desabilitado, setDesabilitado] = useState(true)
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
+  const [senha, setSenha] = useState(null)
   const [habilitaSalvar, setHabilitaSalvar] = useState(false)
+  const filesElement = useRef(null);
 
   // TODO usar o refresh token para esta operacao
   useEffect(() => {
@@ -17,12 +21,15 @@ function ExibirUsuario({ sessao, setSessao }) {
           'Authorization': `Bearer ${sessao.token}`
         }
       })
-        .then(res => res.data.dados)
+        .then(res => res.data.data.dados)
 
-      resultado.sobrenome = resultado.sobrenome ?? ''
-      setDados(resultado)
-      setNome(resultado.nome)
-      setSobrenome(resultado.sobrenome)
+      console.log('resultado: ', resultado)
+      if (resultado !== null) {
+        resultado.sobrenome = resultado.sobrenome ?? ''
+        setDados(resultado)
+        setNome(resultado.nome)
+        setSobrenome(resultado.sobrenome)
+      }
     };
 
     fetchDados();
@@ -45,6 +52,19 @@ function ExibirUsuario({ sessao, setSessao }) {
     }
   }
 
+  // const enviarImagem = async () => {
+  //   const dataForm = new FormData();
+  //   for (const file of filesElement.current.files) {
+  //     dataForm.append('file', file);
+  //   }
+  //   const res = await fetch(`http://localhost:3001/uploads`, {
+  //     method: 'POST',
+  //     body: dataForm,
+  //   });
+  //   const data = await res.parse;
+  //   console.log(data);
+  // };
+
   const habilitaBotao = () => {
     if (nome === dados.nome.toString && sobrenome === dados.sobrenome.toString()) {
       console.log('Desabilita salvar')
@@ -66,10 +86,50 @@ function ExibirUsuario({ sessao, setSessao }) {
     habilitaBotao()
   }
 
+  const enviaFormulario = async (event) => {
+    event.preventDefault()
+
+
+    const dataForm = new FormData();
+    for (const file of filesElement.current.files) {
+      dataForm.append('file', file);
+    }
+    const res = await fetch(`http://localhost:3001/uploads`, {
+      method: 'POST',
+      body: dataForm,
+    });
+    const data = await res.parse;
+    console.log(data);
+
+
+
+    const dadosLogin = await axios.post(`/usuarios/${sessao.idUsuario}/altera`, {
+      nome: nome,
+      sobrenome: sobrenome,
+      senha: senha,
+      avatar: dataForm
+    },
+      {
+        withCredentials: true
+      })
+      .then(
+        res => {
+          console.log('Login efetivado com sucesso!')
+          return res.data
+        },
+        err => {
+          console.log('Erro ao tentar logar: ', err)
+        })
+    if (dadosLogin != null) {
+      setSessao(dadosLogin.data.id, dadosLogin.data.isAdmin,
+        dadosLogin.data.token)
+    }
+  }
+
   return (
     <div>
       <div>
-        <form id="form-profile">
+        <form id="form-profile" onSubmit={async (e) => enviaFormulario(e)}>
           <div className='form-group'>
             <label>Nome: </label>
             <input
@@ -99,6 +159,9 @@ function ExibirUsuario({ sessao, setSessao }) {
               disabled
             />
           </div>
+          <div>
+            <input type="file" multiple ref={filesElement} />
+          </div>
         </form>
         <div id="wrapper">
 
@@ -118,10 +181,9 @@ function ExibirUsuario({ sessao, setSessao }) {
               Editar perfil
             </button>
             : <button
-              type="button"
+              type="submit"
               className="btn btn-success mb-2"
               disabled={!habilitaSalvar}
-            // onClick={async (e) => enviarFormulario(e)}
             >
               Salvar alterações
             </button>}
