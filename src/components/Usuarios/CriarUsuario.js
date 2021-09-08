@@ -11,7 +11,6 @@ function FormCadastro({ sessao }) {
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
-    // TODO usar o refresh token para esta operacao
     await axios.post('/usuarios/create',
       {
         "nome": nome,

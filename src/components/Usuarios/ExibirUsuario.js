@@ -12,7 +12,6 @@ function ExibirUsuario({ sessao, setSessao }) {
   const [habilitaSalvar, setHabilitaSalvar] = useState(false)
   const filesElement = useRef(null);
 
-  // TODO usar o refresh token para esta operacao
   useEffect(() => {
     const fetchDados = async () => {
       const resultado = await axios.get(`/usuarios/${sessao.idUsuario}`, {
@@ -20,7 +19,9 @@ function ExibirUsuario({ sessao, setSessao }) {
           'Authorization': `Bearer ${sessao.token}`
         }
       })
-        .then(res => res.data.data.dados)
+        .then(
+          res => res.data.data.dados,
+          err => { setSessao(null, false, null, false) })
 
       if (resultado !== null) {
         resultado.sobrenome = resultado.sobrenome ?? ''
@@ -34,12 +35,14 @@ function ExibirUsuario({ sessao, setSessao }) {
   }, []);
 
   const deletaConta = async () => {
-    // TODO colocar uma caixa de confirmacao de deletar a conta
-    const resultado = await axios
-      .delete(`/usuarios/${sessao.idUsuario}/delete`, {
-        headers: {
-          Authorization: `Bearer ${sessao.token}`,
-        },
+    const resultado = await axios.delete(`/usuarios/${sessao.idUsuario}/delete`, {
+      headers: {
+        'Authorization': `Bearer ${sessao.token}`
+      }
+    })
+      .then(res => res.data)
+      .catch(err => {
+        console.log('Erro ao remover o usuário: ' + err)
       })
       .then((res) => res.data)
       .catch((err) => {

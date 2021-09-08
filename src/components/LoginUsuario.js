@@ -19,9 +19,6 @@ function LoginUsuario({ sessao, setSessao }) {
         .then(
           res => res,
           err => null)
-      // .catch(err => {console.log('Erro: ', err)})
-
-      console.log('resposta: ', resposta)
 
       if (resposta !== null) {
         setSessao(
