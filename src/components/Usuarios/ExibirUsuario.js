@@ -92,6 +92,7 @@ function ExibirUsuario({ sessao, setSessao }) {
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
+    console.log('Enviando formulario');
 
     // const dataForm = new FormData();
     // for (const file of filesElement.current.files) {
@@ -107,77 +108,83 @@ function ExibirUsuario({ sessao, setSessao }) {
     // const data = await res.parse;
     // console.log(data);
 
-    const dadosLogin = await axios.post(`/usuarios/${sessao.idUsuario}/altera`, {
-      nome: nome,
-      sobrenome: sobrenome,
-      // avatar: dataForm
-    },
+    console.log('Usuario: ' + sessao.idUsuario);
+    await axios.post(`/usuarios/${sessao.idUsuario}/altera`,
       {
-        withCredentials: true
-      })
+        "nome": nome,
+        "sobrenome": sobrenome,
+        // avatar: dataForm
+      }, {
+      headers: {
+        'Authorization': `Bearer ${sessao.token}`
+      }
+    })
       .then(
         res => {
-          console.log('Login efetivado com sucesso!')
+          console.log('Dados do usuário atualizados!')
           return res.data
         },
         err => {
-          console.log('Erro ao tentar logar: ', err)
-        })
-    if (dadosLogin != null) {
-      setSessao(dadosLogin.data.id, dadosLogin.data.isAdmin,
-        dadosLogin.data.token)
-    }
+          console.log('Erro ao tentar atualizar dados do usuário: ' + err)
+        });
   }
 
   return (
     <div className="form-group p-t-30 p-b-50">
       <h2>Meu Cadastro</h2>
       <div className="container-login3">
-        <div className='row-full'>
-          <form id="form-profile" name="form-profile" onSubmit={async (e) => enviaFormulario(e)}>
-            <div className="center-form">
-              <div className="form-group p-t-30 p-b-50">
-                <div className="form-floating form-spacing">
-                  <TextField
-                    label="Nome:"
-                    type="text"
-                    value={nome}
-                    className="form-control"
-                    id="nome"
-                    disabled={desabilitado}
-                    onChange={(e) => mudaNome(e)}
-                    style={{ width: "80%", marginBottom: "20px", height: "100px" }}
-                  />
-                </div>
+        <form id="form-profile" name="form-profile" >
+          <div className="row center-form">
+            <div className="form-group col">
+              <div className="form-floating form-spacing">
+                <TextField
+                  label="Nome:"
+                  type="text"
+                  value={nome}
+                  className="form-control transparent-input"
+                  id="nome"
+                  disabled={desabilitado}
+                  onChange={(e) => mudaNome(e)}
+                  style={{ width: "80%", marginBottom: "20px", height: "100px" }}
+                />
+              </div>
 
-                <div className="form-floating form-spacing">
-                  <TextField
-                    label="Sobrenome:"
-                    type="text"
-                    value={sobrenome}
-                    className="form-control"
-                    id="sobrenome"
-                    disabled={desabilitado}
-                    onChange={(e) => mudaSobrenome(e)}
-                    style={{ width: "80%", marginBottom: "20px", height: '100px' }}
-                  />
-                </div>
-                <div className="form-floating form-spacing">
-                  <TextField
-                    label=""
-                    type="email"
-                    value={dados.email}
-                    className="form-control"
-                    id="email"
-                    disabled
-                    style={{ width: "150%", marginBottom: "10px", height: "100px" }}
-                  />
-                </div>
-                <div id="wrapper">
+              <div className="form-floating form-spacing">
+                <TextField
+                  label="Sobrenome:"
+                  type="text"
+                  value={sobrenome}
+                  className="form-control transparent-input"
+                  id="sobrenome"
+                  disabled={desabilitado}
+                  onChange={(e) => mudaSobrenome(e)}
+                  style={{ width: "80%", marginBottom: "20px", height: '100px' }}
+                />
+              </div>
+              <div className="form-floating form-spacing">
+                <TextField
+                  label=""
+                  type="email"
+                  value={dados.email}
+                  className="form-control transparent-input"
+                  id="email"
+                  disabled
+                  style={{ width: "150%", marginBottom: "-11px", height: "100px" }}
+                />
+              </div>
+              <div id="wrapper">
 
-                  {/* <div>
-            <input type ="avatar" name="avatar" ref={filesElement} />
-            </div> */}
+                {/* <div>
+          <input type ="avatar" name="avatar" ref={filesElement} />
+          </div> */}
+                <button
+                  type="button"
+                  className="btn btn-danger mb-2"
+                  onClick={async () => deletaConta()}
+                >
+                  Deletar Conta
+                </button>
+                {desabilitado ?
                   <button
                     type="button"
                     className="btn btn-danger mb-2"
@@ -185,23 +192,15 @@ function ExibirUsuario({ sessao, setSessao }) {
                   >
                     Deletar Conta
                   </button>
-                  {desabilitado ?
-                    <button
-                      type="button"
-                      className="btn btn-success mb-2"
-                      onClick={() => setDesabilitado(false)}
-                    >
-                      Editar perfil
-                    </button>
-                    : <button
-                      type="submit"
-                      className="btn btn-success mb-2"
-                      disabled={!habilitaSalvar}
-                    >
-                      Salvar alterações
-                    </button>}
-                </div>
-              </div >
+                  : <button
+                    type="button"
+                    className="btn btn-success mb-2"
+                    disabled={!habilitaSalvar}
+                    onClick={async (e) => { enviaFormulario(e) }}
+                  >
+                    Salvar alterações
+                  </button>}
+              </div>
             </div >
           </form>
         </div>
