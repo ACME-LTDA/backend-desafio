@@ -8,7 +8,7 @@ import axios from 'axios';
 import CriarUsuario from './components/Usuarios/CriarUsuario';
 import LoginUsuario from './components/LoginUsuario';
 import ExibirUsuario from './components/Usuarios/ExibirUsuario';
-import ExibirPilotos from './components/Pilotos/ExibirPilotos';
+import ExibirPilotos from './components/Pilotos/ListarPilotos';
 
 function App({ sessao, setSessao }) {
   const deslogaUsuario = async () => {

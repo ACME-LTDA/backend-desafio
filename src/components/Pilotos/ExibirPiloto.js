@@ -1,15 +1,14 @@
-import { react, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import axios from 'axios';
 
-function ExibirPilotos({ sessao, setSessao }) {
+function ExibirPiloto({ sessao, setSessao }) {
 
-  const [nomePiloto, setNomePiloto] = useState('')
-  const [sobrenomePiloto, setSobrenomePiloto] = useState('')
+  const [nomePiloto, setPrimeiroNome] = useState('')
+  const [sobrenome, setSobrenome] = useState('')
   const [dataNascimento, setDataNascimento] = useState('')
   const [nacionalidade, setNacionalidade] = useState('')
-  const [link, setLink] = useState('')
-  const [descricao, setDescricao] = useState('')
-  const [arquivo, setArquivo] = useState('')
+  const [urlWiki, setUrlWiki] = useState('')
+  const [observacao, setObservacao] = useState('')
   const [habilitaSalvar, setHabilitaSalvar] = useState(false)
   const [desabilitado, setDesabilitado] = useState(true)
   const [dados, setDados] = useState({})
@@ -29,13 +28,12 @@ function ExibirPilotos({ sessao, setSessao }) {
       if (resultado !== null) {
         resultado.sobrenome = resultado.sobrenome ?? ''
         setDados(resultado)
-        setArquivo(resultado.arquivo)
-        setNomePiloto(resultado.nomePiloto)
-        setSobrenomePiloto(resultado.sobrenomePiloto)
+        setPrimeiroNome(resultado.nomePiloto)
+        setSobrenome(resultado.sobrenome)
         setDataNascimento(resultado.dataNascimento)
         setNacionalidade(resultado.nacionalidade)
-        setLink(resultado.link)
-        setDescricao(resultado.descricao)
+        setUrlWiki(resultado.urlWiki)
+        setObservacao(resultado.observacao)
       }
     };
 
@@ -61,12 +59,11 @@ function ExibirPilotos({ sessao, setSessao }) {
 
   const habilitaBotao = () => {
     if (nomePiloto === dados.nomePiloto.toString
-      && sobrenomePiloto === dados.sobrenomePiloto.toString()
-      && arquivo === dados.arquivo.toString()
+      && sobrenome === dados.sobrenome.toString()
       && dataNascimento === dados.dataNascimento.toString()
       && nacionalidade === dados.nacionalidade.toString()
-      && link === dados.link.toString()
-      && descricao === dados.descricao.toString()) {
+      && urlWiki === dados.urlWiki.toString()
+      && observacao === dados.observacao.toString()) {
       console.log('Desabilita salvar')
       setHabilitaSalvar(false)
     }
@@ -77,12 +74,12 @@ function ExibirPilotos({ sessao, setSessao }) {
   }
 
   const mudaNome = (event) => {
-    setNomePiloto(event.target.value)
+    setPrimeiroNome(event.target.value)
     habilitaBotao()
   }
 
   const mudaSobrenome = (event) => {
-    setSobrenomePiloto(event.target.value)
+    setSobrenome(event.target.value)
     habilitaBotao()
   }
 
@@ -91,18 +88,13 @@ function ExibirPilotos({ sessao, setSessao }) {
     habilitaBotao()
   }
 
-  const mudaLink = (event) => {
-    setLink(event.target.value)
+  const mudaUrlWiki = (event) => {
+    setUrlWiki(event.target.value)
     habilitaBotao()
   }
 
-  const mudaDescricao = (event) => {
-    setDescricao(event.target.value)
-    habilitaBotao()
-  }
-
-  const mudaArquivo = (event) => {
-    setArquivo(event.target.value)
+  const mudaObservacao = (event) => {
+    setObservacao(event.target.value)
     habilitaBotao()
   }
 
@@ -124,7 +116,7 @@ function ExibirPilotos({ sessao, setSessao }) {
             <label>Sobrenome: </label>
             <input
               type="text"
-              value={sobrenomePiloto}
+              value={sobrenome}
               className="form-control"
               disabled={desabilitado}
               onChange={e => mudaSobrenome(e)}
@@ -153,30 +145,20 @@ function ExibirPilotos({ sessao, setSessao }) {
             <label>Link da Wikipedia: </label>
             <input
               type="text"
-              value={link}
+              value={urlWiki}
               className="form-control"
               disabled={desabilitado}
-              onChange={e => mudaLink(e)}
+              onChange={e => mudaUrlWiki(e)}
             />
           </div>
           <div className='form-group'>
             <label>Descrição: </label>
             <input
               type="text"
-              value={descricao}
+              value={observacao}
               className="form-control"
               disabled={desabilitado}
-              onChange={e => mudaDescricao(e)}
-            />
-          </div>
-          <div className='form-group'>
-            <label>Foto do Piloto: </label>
-            <input
-              type="file"
-              value={arquivo}
-              className="form-control"
-              disabled={desabilitado}
-              onChange={e => mudaArquivo(e)}
+              onChange={e => mudaObservacao(e)}
             />
           </div>
         </form>
@@ -211,4 +193,4 @@ function ExibirPilotos({ sessao, setSessao }) {
   )
 }
 
-export default ExibirPilotos
+export default ExibirPiloto

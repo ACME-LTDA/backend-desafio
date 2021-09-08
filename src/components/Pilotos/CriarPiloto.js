@@ -2,25 +2,23 @@ import { React, useState } from 'react';
 import axios from 'axios';
 
 function FormPiloto({ sessao }) {
-  const [nomePiloto, setNomePiloto] = useState('')
-  const [sobrenomePiloto, setSobrenomePiloto] = useState('')
+  const [primeiroNome, setPrimeiroNome] = useState('')
+  const [sobrenome, setSobrenome] = useState('')
   const [dataNascimento, setDataNascimento] = useState('')
   const [nacionalidade, setNacionalidade] = useState('')
-  const [link, setLink] = useState('')
-  const [descricao, setDescricao] = useState('')
-  const [arquivo, setArquivo] = useState('')
+  const [urlWiki, setUrlWiki] = useState('')
+  const [observacao, setObservacao] = useState('')
 
   const enviaFormulario = async (event) => {
     event.preventDefault()
     await axios.post('/pilotos/create',
       {
-        "nomePiloto": nomePiloto,
-        "sobrenome": sobrenomePiloto,
+        "primeiroNome": primeiroNome,
+        "sobrenome": sobrenome,
         "dataNascimento": dataNascimento,
         "nacionalidade": nacionalidade,
-        "link": link,
-        "descricao": descricao,
-        "arquivo": arquivo
+        "urlWiki": urlWiki,
+        "observacao": observacao,
       }, {
       headers: {
         'Authorization': `Bearer ${sessao.token}`
@@ -47,7 +45,7 @@ function FormPiloto({ sessao }) {
           className="form-control"
           id="nome"
           placeholder="Digite o nome"
-          onChange={(e) => setNome(e.target.value)}
+          onChange={(e) => setPrimeiroNome(e.target.value)}
         />
         <h3>{nome}</h3>
       </div>
@@ -86,25 +84,16 @@ function FormPiloto({ sessao }) {
           className="form-control"
           id="wikipedia"
           placeholder="Digite o link para a Wikipedia"
-          onChange={(e) => setLink(e.target.value)} />
+          onChange={(e) => setUrlWiki(e.target.value)} />
       </div>
       <div className="form-group">
-        <label>Descrição:</label>
+        <label>Observação:</label>
         <textarea
           type="text"
           className="form-control"
-          id="descricao"
+          id="observacao"
           placeholder="Digite a descrição do piloto"
-          onChange={(e) => setDescricao(e.target.value)}></textarea>
-      </div>
-      <div className="form-group">
-        <label>Foto:</label>
-        <textarea
-          type="file"
-          className="form-control"
-          id="foto"
-          placeholder="Insira uma foto do piloto"
-          onChange={(e) => setArquivo(e.target.value)}></textarea>
+          onChange={(e) => setObservacao(e.target.value)}></textarea>
       </div>
       <button
         type="submit"
