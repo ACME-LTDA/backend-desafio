@@ -2,14 +2,12 @@ import { React, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 import './ExibirUsuario.css';
-import FileUpload from '../FileUpload';
 
 function ExibirUsuario({ sessao, setSessao }) {
   const [dados, setDados] = useState({})
   const [desabilitado, setDesabilitado] = useState(true)
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
-  const [senha, setSenha] = useState(null)
   const [habilitaSalvar, setHabilitaSalvar] = useState(false)
   const filesElement = useRef(null);
 
@@ -89,25 +87,24 @@ function ExibirUsuario({ sessao, setSessao }) {
   const enviaFormulario = async (event) => {
     event.preventDefault()
 
+    // const dataForm = new FormData();
+    // for (const file of filesElement.current.files) {
+    //   dataForm.append('avatar', file);
+    // }
 
-    const dataForm = new FormData();
-    for (const file of filesElement.current.files) {
-      dataForm.append('file', file);
-    }
-    const res = await fetch(`http://localhost:3001/uploads`, {
-      method: 'POST',
-      body: dataForm,
-    });
-    const data = await res.parse;
-    console.log(data);
-
-
+    // console.log('data form: ', dataForm);
+    // console.log(filesElement.current);
+    // const res = await fetch(`http://localhost:3001/uploads`, {
+    //   method: 'POST',
+    //   body: dataForm,
+    // });
+    // const data = await res.parse;
+    // console.log(data);
 
     const dadosLogin = await axios.post(`/usuarios/${sessao.idUsuario}/altera`, {
       nome: nome,
       sobrenome: sobrenome,
-      senha: senha,
-      avatar: dataForm
+      // avatar: dataForm
     },
       {
         withCredentials: true
@@ -129,12 +126,13 @@ function ExibirUsuario({ sessao, setSessao }) {
   return (
     <div>
       <div>
-        <form id="form-profile" onSubmit={async (e) => enviaFormulario(e)}>
+        <form id="form-profile" name="form-profile" onSubmit={async (e) => enviaFormulario(e)}>
           <div className='form-group'>
             <label>Nome: </label>
             <input
               type="text"
               value={nome}
+              name="nome"
               className="form-control"
               disabled={desabilitado}
               onChange={e => mudaNome(e)}
@@ -145,6 +143,7 @@ function ExibirUsuario({ sessao, setSessao }) {
             <input
               type="text"
               value={sobrenome}
+              name="sobrenome"
               className="form-control"
               disabled={desabilitado}
               onChange={e => mudaSobrenome(e)}
@@ -160,34 +159,34 @@ function ExibirUsuario({ sessao, setSessao }) {
             />
           </div>
           <div>
-            <input type="file" multiple ref={filesElement} />
+            <input type="avatar" name="avatar" ref={filesElement} />
           </div>
-        </form>
-        <div id="wrapper">
+          <div id="wrapper">
 
-          <button
-            type="button"
-            className="btn btn-danger mb-2"
-            onClick={async () => deletaConta()}
-          >
-            Deletar Conta
-          </button>
-          {desabilitado ?
             <button
               type="button"
-              className="btn btn-success mb-2"
-              onClick={() => setDesabilitado(false)}
+              className="btn btn-danger mb-2"
+              onClick={async () => deletaConta()}
             >
-              Editar perfil
+              Deletar Conta
             </button>
-            : <button
-              type="submit"
-              className="btn btn-success mb-2"
-              disabled={!habilitaSalvar}
-            >
-              Salvar alterações
-            </button>}
-        </div>
+            {desabilitado ?
+              <button
+                type="button"
+                className="btn btn-success mb-2"
+                onClick={() => setDesabilitado(false)}
+              >
+                Editar perfil
+              </button>
+              : <button
+                type="submit"
+                className="btn btn-success mb-2"
+                disabled={!habilitaSalvar}
+              >
+                Salvar alterações
+              </button>}
+          </div>
+        </form>
       </div >
     </div >
   )
